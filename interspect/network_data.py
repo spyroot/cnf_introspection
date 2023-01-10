@@ -2,6 +2,7 @@
 # Mus
 import subprocess
 import warnings
+from collections import defaultdict
 from pathlib import Path
 from typing import List
 
@@ -52,6 +53,10 @@ def installed(distro_installers=None):
     return [(Path(p).exists(), p) for p in distro_installers]
 
 
+def join_if_needed(arg):
+    print("arg", arg)
+
+
 def network_time_hw_offload_data(eth_name: str) -> dict:
     """Network adapter time offload capability
     :param eth_name: adapter name eth0 etc.
@@ -59,7 +64,20 @@ def network_time_hw_offload_data(eth_name: str) -> dict:
     """
     cmdr = subprocess.run(["ethtool", "-T", eth_name], check=True, capture_output=True)
     decoded = cmdr.stdout.decode().split("\n")[:-1]
-    return dict([s.strip().split(":", 1) for s in decoded if len(s) > 0])
+    for i, d in enumerate(decoded):
+        if "Capabilities" in d:
+            decoded = decoded[i + 1:]
+            break
+
+    for i, d in enumerate(decoded):
+        if ":" in d:
+            decoded = decoded[:i]
+            break
+
+    translator = str.maketrans({chr(10): '', chr(9): ''})
+    decoded = [d.translate(translator) for d in decoded]
+    data_dict = dict.fromkeys(decoded, True)
+    return data_dict
 
 
 def network_adapter_data(eth_name: str) -> dict:
@@ -107,6 +125,7 @@ def network_adapters_data(cmd):
             network_adapter['pci'] = decoded[i].split("@")[1:][0]
             if decoded[i + 1] == 'network':
                 continue
+
             eth_name = decoded[i + 1].strip()
             # skip all dev that has no device name , i.e virtual
             if eth_name is None or len(eth_name) == 0:
@@ -122,4 +141,3 @@ def network_adapters_data(cmd):
         return network_adapters
     except FileNotFoundError as fnfe:
         print("You need to install lshw and ethtool first.")
-
