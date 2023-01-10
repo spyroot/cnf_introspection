@@ -30,7 +30,7 @@ async def adapters_data(topo_file = "/tmp/topo.svg"):
         buf = io.BytesIO(fh.read())
         image_stream = io.BytesIO(buf.read())
 
-    return StreamingResponse(content=image_stream, media_type="image/svg")
+    return StreamingResponse(content=image_stream, media_type="image/svg+xml")
 
 @app.get("/numatopo")
 async def adapters_data():
