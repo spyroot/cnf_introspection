@@ -19,7 +19,7 @@ def run_install_dep(required_apps: Optional[List[str]] = None):
     :return:
     """
     if required_apps is None:
-        required_apps = ["lshw", "ethtool"]
+        required_apps = ["lshw", "ethtool", "hwloc"]
 
     if os.geteuid() != 0:
         print("You need run --install_dep as root.")
