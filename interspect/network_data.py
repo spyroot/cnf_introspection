@@ -51,11 +51,6 @@ def installed(distro_installers=None):
 
     return [(Path(p).exists(), p) for p in distro_installers]
 
-
-def join_if_needed(arg):
-    print("arg", arg)
-
-
 def network_time_hw_offload_data(eth_name: str) -> dict:
     """Network adapter time offload capability
     :param eth_name: adapter name eth0 etc.

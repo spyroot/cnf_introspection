@@ -1,12 +1,11 @@
 import argparse
 import os
 from typing import Optional, List
-
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
-
 import json
 
-def pp_json(json_thing, sort=True, indents=4):
+
+def nice_json(json_thing, sort=True, indents=4):
     if type(json_thing) is str:
         print(json.dumps(json.loads(json_thing), sort_keys=sort, indent=indents))
     else:
@@ -44,7 +43,7 @@ def main(cmd):
 
     netdata = network_adapters_data(cmd)
     if netdata is not None:
-        pp_json(netdata)
+        nice_json(netdata)
 
 
 if __name__ == '__main__':
