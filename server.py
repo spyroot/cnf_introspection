@@ -19,7 +19,7 @@ async def adapters_data():
     netdata = network_adapters_data(cmd="")
     return netdata
 
-@app.get("/numa")
+@app.get("/numa.svg")
 async def adapters_data(topo_file = "/tmp/topo.svg"):
     """
 
