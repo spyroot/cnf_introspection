@@ -2,7 +2,6 @@
 # Mus
 import subprocess
 import warnings
-from collections import defaultdict
 from pathlib import Path
 from typing import List
 

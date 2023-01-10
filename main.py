@@ -4,6 +4,15 @@ from typing import Optional, List
 
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
 
+import json
+
+def pp_json(json_thing, sort=True, indents=4):
+    if type(json_thing) is str:
+        print(json.dumps(json.loads(json_thing), sort_keys=sort, indent=indents))
+    else:
+        print(json.dumps(json_thing, sort_keys=sort, indent=indents))
+    return None
+
 
 def run_install_dep(required_apps: Optional[List[str]] = None):
     """Install required packages.
@@ -35,7 +44,7 @@ def main(cmd):
 
     netdata = network_adapters_data(cmd)
     if netdata is not None:
-        print(netdata)
+        pp_json(netdata)
 
 
 if __name__ == '__main__':
