@@ -4,6 +4,8 @@ from typing import Optional, List
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
 import json
 
+from interspect.numa_data import numa_topo_data
+
 
 def nice_json(json_thing, sort=True, indents=4):
     if type(json_thing) is str:
@@ -44,6 +46,8 @@ def main(cmd):
     netdata = network_adapters_data(cmd)
     if netdata is not None:
         nice_json(netdata)
+
+    numa_topo_data_console()
 
 
 if __name__ == '__main__':
