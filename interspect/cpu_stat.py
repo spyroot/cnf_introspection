@@ -1,4 +1,5 @@
 import subprocess
+from typing import Dict
 
 
 def cpu_per_core(cmd):
@@ -19,19 +20,21 @@ def cpu_interrupts(cmd):
     """
     try:
         cmdr = subprocess.run(["mpstat", "-I", "SCPU", "-o", "JSON"], check=True, capture_output=True)
-        output = cmdr.stdout.decode()
-        return output
+        decoded = cmdr.stdout.decode()
+        return decoded
     except FileNotFoundError as fnfe:
         print("You need to install lshw and ethtool first.")
 
 
-def kernel_cmdline(cmd):
-    """Save numa topology and the rest to a svg file.
-    :return:
+def kernel_cmdline(cmd) -> Dict:
+    """Return current kernel cmd line
+    :return: dict
     """
     try:
         cmdr = subprocess.run(["cat", "/proc/cmdline"], check=True, capture_output=True)
-        output = cmdr.stdout.decode()
-        return output
+        decoded = cmdr.stdout.decode().strip()
+        decoded = set(decoded.split(" "))
+        data = dict.fromkeys(decoded, True)
+        return data
     except FileNotFoundError as fnfe:
-        print("You need to install lshw and ethtool first.")
+        print("You need to install cat.")

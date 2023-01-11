@@ -1,14 +1,14 @@
 # server side, so you can hook up ansible etc.
 import io
+import json
 
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from interspect.network_data import network_adapters_data
-import json
-
-from interspect.stat import cpu_per_core
+from interspect.cpu_stat import cpu_per_core, cpu_interrupts
 
 app = FastAPI()
+
 
 @app.get("/")
 def read_root():
@@ -35,12 +35,21 @@ async def adapters_data(topo_file="/tmp/topo.svg"):
         image_stream = io.BytesIO(buf.read())
     return StreamingResponse(content=image_stream, media_type="image/svg+xml")
 
+
 @app.get("/cpu_stat")
 async def adapters_data():
     """
     :return:
     """
     return cpu_per_core(cmd="")
+
+@app.get("/cpu_interrupts")
+async def cpu_interrupts_data():
+    """CPU interrupt data
+    :return:
+    """
+    return cpu_interrupts(cmd="")
+
 
 @app.get("/numatopo")
 async def adapters_data():
