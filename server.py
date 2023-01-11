@@ -5,7 +5,7 @@ import json
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from interspect.network_data import network_adapters_data
-from interspect.cpu_stat import cpu_per_core, cpu_interrupts
+from interspect.cpu_stat import cpu_per_core, cpu_interrupts, kernel_cmdline
 
 app = FastAPI()
 
@@ -51,10 +51,10 @@ async def cpu_interrupts_data():
     return cpu_interrupts(cmd="")
 
 
-@app.get("/numatopo")
+@app.get("/kerenl_cmd")
 async def adapters_data():
     """
     :return:
     """
-    netdata = network_adapters_data(cmd="")
+    netdata = kernel_cmdline(cmd="")
     return netdata
