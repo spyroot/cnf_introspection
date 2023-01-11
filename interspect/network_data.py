@@ -1,4 +1,4 @@
-# Network os data collector.
+# network os data collector.
 # Mus
 import subprocess
 import warnings
@@ -50,6 +50,7 @@ def installed(distro_installers=None):
                              ]
 
     return [(Path(p).exists(), p) for p in distro_installers]
+
 
 def network_time_hw_offload_data(eth_name: str) -> dict:
     """Network adapter time offload capability

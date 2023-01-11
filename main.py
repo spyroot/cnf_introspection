@@ -4,7 +4,8 @@ from typing import Optional, List
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
 import json
 
-from interspect.numa_data import numa_topo_data
+from interspect.numa_data import numa_topo_data, numa_topo_data_console
+from interspect.stat import cpu_per_core
 
 
 def nice_json(json_thing, sort=True, indents=4):
@@ -31,7 +32,7 @@ def run_install_dep(required_apps: Optional[List[str]] = None):
         if is_installed is True:
             # ubuntu specific
             if 'apt' in inst_tool:
-                required_apps += ["net-tools"]
+                required_apps += ["net-tools", "build-essential", "libnuma-dev"]
             run_distro_installer(inst_tool, required_apps)
 
 
@@ -47,7 +48,8 @@ def main(cmd):
     if netdata is not None:
         nice_json(netdata)
 
-    numa_topo_data_console()
+    numa_topo_data_console(cmd)
+    nice_json(cpu_per_core(cmd))
 
 
 if __name__ == '__main__':
