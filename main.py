@@ -9,6 +9,8 @@ import json
 import sys
 import yaml
 from typing import Optional, List
+
+from interspect.kernel import read_kernel_configs
 from interspect.mem_stat import mem_stats, mem_large_page
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
 from interspect.numa_data import numa_topo_data, numa_topo_data_console
@@ -134,7 +136,10 @@ def kernel(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
     :param is_verbose:
     :return:
     """
-    printer_router(kernel_cmdline(), is_yaml=is_yaml, is_verbose=is_verbose)
+    kernel_config = read_kernel_configs()
+    kernel_cmd_data = kernel_cmdline()
+    kernel_config.update(kernel_cmd_data)
+    printer_router(kernel_config.update(kernel_cmd), is_yaml=is_yaml, is_verbose=is_verbose)
 
 
 def network(interface: str, pci: str, mac_addr: str,
@@ -212,6 +217,7 @@ if __name__ == '__main__':
     cpu_cap_cmd = subparsers.add_parser('cpu_capability')
     large_page_cmd = subparsers.add_parser('large_huge')
     vmstat_cmd = subparsers.add_parser('vmstat')
+
 
     kwargs = vars(parser.parse_args())
     if kwargs['subparser'] is not None:

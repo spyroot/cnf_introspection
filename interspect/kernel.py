@@ -47,22 +47,28 @@ def kernel_kv(kernel_config_file: str) -> Tuple[Dict, Dict]:
 
     return kernel_config, kernel_mod
 
+
 def read_kernel_configs():
     """Read all kernel config
     :return:
     """
+    kern_configs = {}
     kern_name = kernel_name()
     _configs = [Path("/proc/config.gz"),
-                       Path("/boot/config-" + kern_name),
-                       Path("/usr/src/linux-" + kern_name + "/.config"),
-                       Path("/usr/src/linux/.config")]
+                Path("/boot/config-" + kern_name),
+                Path("/usr/src/linux-" + kern_name + "/.config"),
+                Path("/usr/src/linux/.config")]
 
     valid_path = {}
-    for p in i:
+    for p in _configs:
         if p.exists() and p.is_file():
             valid_path[p] = True
 
     # we swap each config is key, if we have more then one caller need check both
-    kern_configs = {}
+
     for v in valid_path:
-        kern_configs[str(v)] = kernel_kv(str(v))
+        kern_cfg, ken_mod = kernel_kv(str(v))
+        kern_configs[str(v)]['kernel_config'] = kern_cfg
+        kern_configs[str(v)]['kernel_modules'] = ken_mod
+
+    return kern_configs
