@@ -10,7 +10,7 @@ and would like to query get OS-specific data without constantly ssh sessions to 
 ## Example
 
 ```bash
-python new_main.py network
+python main.py network
 ```
 
 Will output json notice pci address / hardware ptp etc aggregate to singel view per adapter.
@@ -65,7 +65,7 @@ Will output json notice pci address / hardware ptp etc aggregate to singel view 
 Similarly, we can filter by name, alias name, PCI address, and mac address.
 
 ```bash
-python new_main.py network -i eth9
+python main.py network -i eth9
 ```
 
 ```json
@@ -95,5 +95,5 @@ python new_main.py network -i eth9
 ```
 
 ```bash
- python new_main.py network -i 0000:41:00.0
+ python main.py network -i 0000:41:00.0
  ```
