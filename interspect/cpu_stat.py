@@ -60,7 +60,7 @@ def cpu_capability_stats():
                         data_dict[cpu_id] = {}
                         data_dict[cpu_id]['processor'] = data_value
                     else:
-                        if 'flags' == data_key:
+                        if 'flags' == data_key or 'vmx flags' == data_key or 'bugs' == data_key:
                             data_dict[cpu_id][data_key] = dict.fromkeys(data_value.split(), True)
                         else:
                             data_dict[cpu_id][data_key] = data_value
