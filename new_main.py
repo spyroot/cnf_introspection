@@ -122,7 +122,7 @@ def vmstat(is_verbose: bool):
     """vmstat cmd
     :return:
     """
-    nice_json(mem_large_page())
+    nice_json(vmstat())
 
 
 if __name__ == '__main__':

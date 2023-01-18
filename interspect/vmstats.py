@@ -1,8 +1,8 @@
 import os
-import subprocess
 from typing import Dict
 
-def vmstat():
+
+def vmstat() -> Dict:
     """Return vmstats info stats
     :return:
     """
@@ -14,6 +14,7 @@ def vmstat():
                     data = line.split(" ")
                     if len(data) > 0:
                         data_dict[data[0].strip()] = data[1].strip()
+        return data_dict
     except FileNotFoundError as fnfe:
         print("You need to install lshw and ethtool first. Error: ", fnfe)
 
