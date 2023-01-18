@@ -1,5 +1,6 @@
 import os
 import subprocess
+import warnings
 from typing import Dict, Tuple
 from pathlib import Path
 
@@ -12,17 +13,48 @@ def kernel_name() -> str:
     output = cmdr.stdout.decode()
     if len(output) > 0 and cmdr.returncode == 0:
         return output.strip()
-
     return ""
+
+
+def list_kernel_mods() -> Dict[str, bool]:
+    """Return list of kernel modules,  if module not in use value for a key False.
+    :return:
+    """
+    kern_modules = {}
+    decoded = None
+    cmdr_ret = -1
+    try:
+        cmdr = subprocess.run(["lsmod"], check=True, capture_output=True)
+        cmdr_ret = cmdr.returncode
+        decoded = cmdr.stdout.decode()
+    except FileNotFoundError as fnfe:
+        print("You need to install lsmod or adjust $PATH. Error: ", fnfe)
+
+    if decoded is not None and len(decoded) > 0 and cmdr_ret == 0:
+        decoded = decoded.split("\n")[1:]
+        for decoded_line in decoded:
+            decoded_line = decoded_line.strip().split()
+            if decoded_line is None or len(decoded_line) < 2:
+                continue
+            translator = str.maketrans({chr(10): '', chr(9): ''})
+            decoded_line = [d.translate(translator) for d in decoded_line]
+            try:
+                mod_name = decoded_line[0].strip()
+                mod_in_use = decoded_line[2].strip()
+                if len(mod_name) > 0 and len(mod_in_use):
+                    inuse = int(mod_in_use)
+                    kern_modules[mod_name] = True if inuse > 0 else False
+            except ValueError as ve:
+                warnings.warn(f"Failed decoded line. Error {str(ve)}")
+
+    return kern_modules
 
 
 def kernel_kv(kernel_config_file: str) -> Tuple[Dict, Dict]:
     """Reads kernel config and return two dicts for modules and flags used to compile a kernel
     :return:
     """
-    print("Reading file", kernel_config_file)
     translator = str.maketrans({chr(10): '', chr(9): ''})
-
     kernel_mod = {}
     kernel_config = {}
     try:

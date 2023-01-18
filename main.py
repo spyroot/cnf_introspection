@@ -10,7 +10,7 @@ import sys
 import yaml
 from typing import Optional, List
 
-from interspect.kernel import read_kernel_configs
+from interspect.kernel import read_kernel_configs, list_kernel_mods
 from interspect.mem_stat import mem_stats, mem_large_page
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
 from interspect.numa_data import numa_topo_data, numa_topo_data_console
@@ -138,7 +138,8 @@ def kernel(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
     """
     kernel_config = read_kernel_configs()
     kernel_cmd_data = kernel_cmdline()
-    kernel_config_all = {**kernel_config, **kernel_cmd_data}
+    kernel_modules = list_kernel_mods()
+    kernel_config_all = {**kernel_config, **kernel_cmd_data, **kernel_modules}
     printer_router(kernel_config_all, is_yaml=is_yaml, is_verbose=is_verbose)
 
 
