@@ -56,7 +56,7 @@ def memory(hugepages, is_verbose):
     :param is_verbose:
     :return:
     """
-    nice_json(is_huge_page_only=mem_stats(bool(hugepages)))
+    nice_json(mem_stats(is_huge_page_only=bool(hugepages)))
 
 
 def cpu(beta, gamma):
