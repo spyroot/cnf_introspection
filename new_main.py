@@ -51,7 +51,7 @@ def run_install_dep(required_apps: Optional[List[str]] = None):
             run_distro_installer(inst_tool, required_apps)
 
 
-def memory(hugepages, is_verbose):
+def memory(hugepages, is_verbose: bool):
     """Return memory stats
     :param hugepages: Filters and output dict json will store only huge pages data.
     :param is_verbose:
@@ -64,15 +64,15 @@ def cpu(beta, gamma):
     print('task b', beta, gamma)
 
 
-def cpu_interrupt():
+def cpu_interrupt(is_verbose: bool):
     print('task interupts')
 
 
-def numa():
+def numa(is_verbose: bool):
     nice_json(cpu_interrupts())
 
 
-def kernel():
+def kernel(is_verbose: bool):
     nice_json(kernel_cmdline())
 
 
@@ -89,7 +89,7 @@ def network(interface: str, pci: str, mac_addr: str, is_verbose: Optional[bool] 
         nice_json(netdata)
 
 
-def cpu_capability():
+def cpu_capability(is_verbose: bool):
     """
     :return:
     """
