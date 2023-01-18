@@ -14,40 +14,6 @@ from interspect.numa_data import numa_topo_data, numa_topo_data_console
 from interspect.cpu_stat import cpu_per_core, kernel_cmdline, cpu_interrupts
 
 
-def nice_json(json_data: str, sort: Optional[bool] = True, indents: Optional[int] = 4):
-    """Make json look nice.
-    :param json_data:
-    :param sort:
-    :param indents:
-    :return:
-    """
-    if isinstance(json_data, str):
-        print(json.dumps(json.loads(json_data), sort_keys=sort, indent=indents))
-    else:
-        print(json.dumps(json_data, sort_keys=sort, indent=indents))
-
-
-def run_install_dep(required_apps: Optional[List[str]] = None):
-    """Install required packages.
-    :return:
-    """
-    # default list required
-    if required_apps is None:
-        required_apps = ["lshw", "ethtool", "hwloc"]
-
-    if os.geteuid() != 0:
-        print("You need to run --install_dep as root.")
-        sys.exit(1)
-
-    distro_installers = installed()
-    for (is_installed, inst_tool) in distro_installers:
-        if is_installed is True:
-            # ubuntu specific
-            if 'apt' in inst_tool:
-                required_apps += ["net-tools", "build-essential", "libnuma-dev"]
-            run_distro_installer(inst_tool, required_apps)
-
-
 def main(cmd):
     """Main entry
     :param cmd: args

@@ -19,7 +19,7 @@ from interspect.numa_data import numa_topo_data, numa_topo_data_console
 from interspect.cpu_stat import cpu_per_core, kernel_cmdline, cpu_interrupts, cpu_capability_stats
 
 
-def nice_json(json_data: str, sort: Optional[bool] = True, indents: Optional[int] = 4):
+def nice_json(json_data, sort: Optional[bool] = True, indents: Optional[int] = 4):
     """Make json look nice.
     :param json_data:
     :param sort:
@@ -33,7 +33,7 @@ def nice_json(json_data: str, sort: Optional[bool] = True, indents: Optional[int
 
 
 def run_install_dep(required_apps: Optional[List[str]] = None):
-    """Install required packages.
+    """Installs required packages
     :return:
     """
     # default list required
@@ -131,6 +131,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="CNF worker node data collector.")
     parser.add_argument('--is_verbose', action='store_true', required=False,
                         help="Enable verbose output.")
+    parser.add_argument('--install_dep', action='store_true', required=False,
+                        help="Install required tools and packages.")
 
     subparsers = parser.add_subparsers(dest='subparser')
 
@@ -138,7 +140,7 @@ if __name__ == '__main__':
     parser_a.add_argument('--hugepages', dest='hugepages',
                           action='store_true', required=False, help='hugepages.')
 
-    cpu_cmd = subparsers.add_parser('network')
+    cpu_cmd = subparsers.add_parser('network', help="collect network related data")
     cpu_cmd.add_argument('-i', '--interface', dest='interface', default="",
                          help="Filter by interface  name eth0 etc.")
     cpu_cmd.add_argument('-p', '--pci', dest='pci', default="",
