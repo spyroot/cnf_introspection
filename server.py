@@ -52,7 +52,7 @@ async def cpu_interrupts_data():
     return cpu_interrupts(cmd="")
 
 
-@app.get("/kerenl_cmd")
+@app.get("/kernel_cmd")
 async def adapters_data():
     """
     :return:

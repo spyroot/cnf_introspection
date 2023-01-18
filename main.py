@@ -4,6 +4,8 @@
 import os
 import argparse
 from typing import Optional, List
+
+from interspect.mem_stat import mem_info
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
 import json
 from interspect.numa_data import numa_topo_data, numa_topo_data_console
@@ -66,6 +68,8 @@ def main(cmd):
         nice_json(cpu_interrupts(cmd))
     if cmd.kernel or cmd.all:
         nice_json(kernel_cmdline(cmd))
+    if cmd.memory or cmd.all:
+        nice_json(mem_info(cmd))
 
 
 if __name__ == '__main__':
