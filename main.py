@@ -140,6 +140,9 @@ def kernel(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
     kernel_cmd_data = kernel_cmdline()
     kernel_config_all = kernel_config.update(kernel_cmd_data)
     print(kernel_config_all)
+    print(kernel_config)
+    print(kernel_cmd_data)
+
     printer_router(kernel_config_all, is_yaml=is_yaml, is_verbose=is_verbose)
 
 
