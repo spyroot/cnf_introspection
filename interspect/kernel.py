@@ -60,10 +60,15 @@ def read_kernel_configs():
                 Path("/usr/src/linux/.config")]
 
     valid_path = {}
+    found_at_least_one = False
     for p in _configs:
         if p.exists() and p.is_file():
             valid_path[p] = True
+            found_at_least_one = True
 
+    if found_at_least_one is False:
+        print("Failed locate kernel config.")
+        return {}
     # we swap each config is key, if we have more then one caller need check both
 
     for v in valid_path:
