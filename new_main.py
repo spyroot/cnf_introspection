@@ -61,10 +61,21 @@ def memory(hugepages, is_verbose: bool):
 
 
 def cpu(beta, gamma):
-    print('task b', beta, gamma)
+    """
 
+    :param beta:
+    :param gamma:
+    :return:
+    """
+    numa_topo_data_console(cmd)
 
 def cpu_interrupt(is_verbose: bool):
+    """
+
+    :param is_verbose:
+    :return:
+    """
+    nice_json(cpu_interrupts())
     print('task interupts')
 
 
