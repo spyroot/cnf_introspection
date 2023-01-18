@@ -139,6 +139,10 @@ def network_adapters_data(interface: Optional[str] = "", pci_addr: Optional[str]
         if interface is not None and len(interface):
             network_adapters = {key: network_adapters[interface.strip()] for key in [interface]}
 
+        if pci_addr is not None and len(pci_addr):
+            network_adapters = {k: network_adapters[k] for k in network_adapters if
+                                pci_addr.strip() == network_adapters[k]['pci'].strip()}
+
         return network_adapters
     except FileNotFoundError as fnfe:
         print("You need to install lshw and ethtool first.")
