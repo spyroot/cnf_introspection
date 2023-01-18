@@ -53,7 +53,7 @@ def cpu_capability_stats():
             for line in proc_mem_fd:
                 data = line.split(":")
                 print(len(data))
-                if data is not None and len(data) == 1:
+                if data is not None and len(data) == 2:
                     data_key = data[0].strip()
                     data_value = data[1].strip()
                     if 'processor' in data_key and len(data_key) > 0:
