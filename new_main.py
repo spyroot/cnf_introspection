@@ -78,8 +78,6 @@ def network(interface: str, pci: str, mac_addr: str, is_verbose: Optional[bool] 
     :param is_verbose:
     :return:
     """
-    print('task interface, filter interface name', interface)
-    print('task interface filter pci addr', pci)
     netdata = network_adapters_data(interface=interface, pci_addr=pci, mac_addr=mac_addr)
     if netdata is not None:
         nice_json(netdata)

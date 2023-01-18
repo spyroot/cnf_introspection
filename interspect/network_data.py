@@ -136,11 +136,13 @@ def network_adapters_data(interface: Optional[str] = "",
             network_adapters[eth_name] = network_adapter
 
         if interface is not None and len(interface):
-            network_adapters = {key: network_adapters[interface.strip()] for key in [interface.strip()]}
+            network_adapters = {key: network_adapters[interface.strip()] for key in [interface.strip()]
+                                if key in network_adapters}
 
         if pci_addr is not None and len(pci_addr):
             network_adapters = {k: network_adapters[k] for k in network_adapters if
                                 pci_addr.strip() == network_adapters[k]['pci'].strip()}
+
         if mac_addr is not None and len(mac_addr):
             network_adapters = {k: network_adapters[k] for k in network_adapters if
                                 pci_addr.strip() == network_adapters[k]['address'].strip()}
