@@ -53,7 +53,7 @@ def cpu_capability_stats():
                 data = line.split(":")
                 cpu_id = None
                 if len(data) > 0 and 'processor' in data[0].strip():
-                    cpu_id = data[0].strip()
+                    cpu_id = data[1].strip()
                     data_dict[cpu_id] = {}
 
                 if len(data) > 0 and cpu_id is not None:
