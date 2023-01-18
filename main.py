@@ -80,7 +80,7 @@ def main(cmd):
 if __name__ == '__main__':
     """
     """
-    parser = argparse.ArgumentParser(description="Network data collector")
+    parser = argparse.ArgumentParser(description="CNF worker node data collector.")
     parser.add_argument('--is_verbose', action='store_true', required=False,
                         help="Enable verbose output.")
     parser.add_argument('--network', action='store_true', required=False,
@@ -96,14 +96,14 @@ if __name__ == '__main__':
     # parser.add_argument('--memory', action='store_true', required=False,
     #                     help="memory details.")
 
-    sub_memory = parser.add_subparsers(help='memory help')
-    parser_huge_page = sub_memory.add_parser('--memory', help="memory only.")
-    parser_huge_page.add_argument('--hugepages', action='store_true', required=False, help='bar is useful option')
-
     parser.add_argument('--all', action='store_true', required=False,
                         help="kernel details.")
     parser.add_argument('--install_dep', action='store_true', required=False,
                         help="Install required tools.")
+
+    sub_memory = parser.add_subparsers(help='memory related sub-commands')
+    parser_huge_page = sub_memory.add_parser('--memory', help="memory only")
+    parser_huge_page.add_argument('--hugepages', action='store_true', required=False, help='return only hugepages')
 
     args = parser.parse_args()
     main(args)

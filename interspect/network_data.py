@@ -3,7 +3,7 @@
 import subprocess
 import warnings
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 
 def run_distro_installer(inst_tool, apps: List[str]):
@@ -96,7 +96,7 @@ def network_addr_mac(eth_name: str) -> str:
         return output.split("address:")[1:][0].strip()
 
 
-def network_adapters_data(cmd):
+def network_adapters_data(interface: Optional[str] = "", pci_addr: Optional[str] = ""):
     """
     :return:
     """
@@ -132,6 +132,9 @@ def network_adapters_data(cmd):
             network_adapter.update(network_adapter_data(eth_name))
             network_adapter.update(network_time_hw_offload_data(eth_name))
             network_adapters[eth_name] = network_adapter
+
+        if interface is not None and len(interface):
+            network_adapters = {key: network_adapters[interface.strip()] for key in network_adapters}
 
         return network_adapters
     except FileNotFoundError as fnfe:
