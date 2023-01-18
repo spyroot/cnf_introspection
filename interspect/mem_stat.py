@@ -11,7 +11,7 @@ def mem_stats(is_huge_page_only: Optional[bool] = False):
     data_dict = {}
     try:
         if os.path.isfile("/proc/meminfo") and os.access("/proc/meminfo", os.R_OK):
-            proc_mem_fd = open("/proc/meminfo", 'r')
+            proc_mem_fd = open("/proc/meminfo", 'r', encoding="utf8")
             for line in proc_mem_fd:
                 data = line.split(":")
                 if len(data) > 0:
@@ -34,4 +34,4 @@ def mem_large_page():
     :return:
     """
     data_dict = cpu_capability_stats()
-    return {k: data_dict[k] for k in data_dict if k == 'data_dict'}
+    return {k: data_dict[k] for k in data_dict if k == 'flags'}
