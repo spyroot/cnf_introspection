@@ -33,6 +33,6 @@ def mem_large_page(gb_kv='pdpe1gb'):
     :return:
     """
     data_dict = cpu_capability_stats()
-    d = [k['flags'][gb_kv] for k in data_dict.values()]
+    d = [k['flags'][gb_kv] for k in data_dict.values() if 'flags' in k]
     return {"pdpe1gb": len(data_dict.keys()) == len(d)}
 
