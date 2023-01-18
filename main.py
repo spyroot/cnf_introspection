@@ -70,7 +70,7 @@ def cpu(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
     :param is_verbose:
     :return:
     """
-    data = cpu_per_core(None)
+    data = cpu_per_core()
     if is_yaml:
         print(yaml.dump(data))
     else:
