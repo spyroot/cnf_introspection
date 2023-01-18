@@ -51,8 +51,8 @@ def run_install_dep(required_apps: Optional[List[str]] = None):
 
 
 def memory(hugepages, is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
-    """Return memory stats
-    :param is_yaml:
+    """Return memory related stats.
+    :param is_yaml: if serialized as yaml
     :param hugepages: Filters and output dict json will store only huge pages data.
     :param is_verbose:
     :return:
@@ -64,19 +64,30 @@ def memory(hugepages, is_yaml: Optional[bool] = False, is_verbose: Optional[bool
         nice_json(data)
 
 
-def cpu(is_verbose: bool):
-    """
-    :return:
-    """
-    nice_json(cpu_per_core(None))
-
-
-def cpu_interrupt(is_verbose: bool):
-    """Return interrupts
+def cpu(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
+    """Return cpu related stats.
+    :param is_yaml: if serialized as yaml
     :param is_verbose:
     :return:
     """
-    nice_json(cpu_interrupts())
+    data = cpu_per_core(None)
+    if is_yaml:
+        print(yaml.dump(data))
+    else:
+        nice_json(data)
+
+
+def cpu_interrupt(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
+    """Return interrupts
+    :param is_yaml:
+    :param is_verbose:
+    :return:
+    """
+    data = cpu_interrupts()
+    if is_yaml:
+        print(yaml.dump(data))
+    else:
+        nice_json(cpu_interrupts())
 
 
 def numa(is_verbose: bool):
