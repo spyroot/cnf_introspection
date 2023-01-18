@@ -137,7 +137,7 @@ def network_adapters_data(interface: Optional[str] = "", pci_addr: Optional[str]
             network_adapters[eth_name] = network_adapter
 
         if interface is not None and len(interface):
-            network_adapters = {key: network_adapters[interface.strip()] for key in network_adapters}
+            network_adapters = {key: network_adapters[interface.strip()] for key in [interface]}
 
         return network_adapters
     except FileNotFoundError as fnfe:
