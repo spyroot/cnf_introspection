@@ -92,7 +92,7 @@ if __name__ == '__main__':
                         help="memory details.")
 
     sub_memory = parser.add_subparsers(help='memory help')
-    parser_huge_page = sub_memory.add_parser('hugepage', action='store_true', required=False, help='huge pages only.')
+    parser_huge_page = sub_memory.add_parser('hugepage', required=False, help='huge pages only.')
 
     parser.add_argument('door', type=str, choices=range(1, 4))
     parser.add_argument('--all', action='store_true', required=False,
