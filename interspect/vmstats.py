@@ -2,7 +2,7 @@ import os
 from typing import Dict
 
 
-def vmstat() -> Dict:
+def vm_stat() -> Dict:
     """Return vmstats info stats
     :return:
     """

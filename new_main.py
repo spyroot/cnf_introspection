@@ -1,6 +1,8 @@
 import argparse
 from typing import Optional
 
+from interspect.vmstats import vm_stat
+
 # !/usr/bin/env python
 """
  Main entry for cli tool
@@ -119,10 +121,10 @@ def large_huge(is_verbose: bool):
 
 
 def vmstat(is_verbose: bool):
-    """vmstat cmd
+    """Return vm_stat json cmd
     :return:
     """
-    nice_json(vmstat())
+    nice_json(vm_stat())
 
 
 if __name__ == '__main__':
