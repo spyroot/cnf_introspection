@@ -88,6 +88,8 @@ if __name__ == '__main__':
                         help="view numa details.")
     parser.add_argument('--kernel', action='store_true', required=False,
                         help="kernel details.")
+    parser.add_argument('--memory', action='store_true', required=False,
+                        help="memory details.")
     parser.add_argument('--all', action='store_true', required=False,
                         help="kernel details.")
     parser.add_argument('--install_dep', action='store_true', required=False,
