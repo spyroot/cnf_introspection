@@ -49,13 +49,12 @@ def cpu_capability_stats():
     try:
         if os.path.isfile("/proc/cpuinfo") and os.access("/proc/cpuinfo", os.R_OK):
             proc_mem_fd = open("/proc/cpuinfo", 'r')
+            cpu_id = None
             for line in proc_mem_fd:
                 data = line.split(":")
-                cpu_id = None
                 if len(data) > 0 and 'processor' in data[0].strip():
                     cpu_id = data[1].strip()
                     data_dict[cpu_id] = {}
-
                 if len(data) > 0 and cpu_id is not None:
                     data_dict[cpu_id][data[0].strip()] = data[1].strip()
 
