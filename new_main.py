@@ -14,7 +14,7 @@ from typing import Optional, List
 from interspect.mem_stat import mem_stats
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
 from interspect.numa_data import numa_topo_data, numa_topo_data_console
-from interspect.cpu_stat import cpu_per_core, kernel_cmdline, cpu_interrupts
+from interspect.cpu_stat import cpu_per_core, kernel_cmdline, cpu_interrupts, cpu_capability_stats
 
 
 def nice_json(json_data: str, sort: Optional[bool] = True, indents: Optional[int] = 4):
@@ -89,6 +89,13 @@ def network(interface: str, pci: str, mac_addr: str, is_verbose: Optional[bool] 
         nice_json(netdata)
 
 
+def cpu_capability():
+    """
+    :return:
+    """
+    nice_json(cpu_capability_stats())
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="CNF worker node data collector.")
     parser.add_argument('--is_verbose', action='store_true', required=False,
@@ -112,6 +119,7 @@ if __name__ == '__main__':
     numa_cmd = subparsers.add_parser('numa')
     kernel_cmd = subparsers.add_parser('kernel')
     cpu_interrupt_cmd = subparsers.add_parser('cpu_interrupt')
+    cpu_cap_cmd = subparsers.add_parser('cpu_capability')
 
     kwargs = vars(parser.parse_args())
     if kwargs['subparser'] is not None:
