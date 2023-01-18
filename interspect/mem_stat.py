@@ -1,8 +1,12 @@
 import os
+from optparse import Option
 
 
-def mem_info(cmd):
-    """Return mem info stats
+def mem_info(cmd, is_huge_page_only: Option[bool] = False):
+    """
+    Return mem info stats
+    :param cmd:
+    :param is_huge_page_only: will return dict with huge pages only
     :return:
     """
     data_dict = {}
@@ -17,5 +21,9 @@ def mem_info(cmd):
     except FileNotFoundError as fnfe:
         print("You need to install lshw and ethtool first.")
 
-    print(data_dict)
+    huge_keys = ["HugePages_Total", "HugePages_Free", "HugePages_Rsvd",
+                 "HugePages_Surp", "Hugepagesize", "Hugetlb"]
+    if is_huge_page_only:
+        data_dict = {key: data_dict[key] for key in huge_keys}
+
     return data_dict
