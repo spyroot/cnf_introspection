@@ -138,8 +138,7 @@ def kernel(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
     """
     kernel_config = read_kernel_configs()
     kernel_cmd_data = kernel_cmdline()
-    kernel_config.update(kernel_cmd_data)
-    printer_router(kernel_config.update(kernel_cmd), is_yaml=is_yaml, is_verbose=is_verbose)
+    printer_router(kernel_config.update(kernel_cmd_data), is_yaml=is_yaml, is_verbose=is_verbose)
 
 
 def network(interface: str, pci: str, mac_addr: str,
