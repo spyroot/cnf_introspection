@@ -52,12 +52,12 @@ def cpu_capability_stats():
             cpu_id = None
             for line in proc_mem_fd:
                 data = line.split(":")
-                if len(data) > 0 and 'processor' in data[0].strip():
-                    cpu_id = data[1].strip()
-                    data_dict[cpu_id] = {}
-                if len(data) > 0 and cpu_id is not None:
-                    data_dict[cpu_id][data[0].strip()] = data[1].strip()
-
+                if data is not None and len(data) > 0:
+                    if 'processor' in data[0].strip():
+                        cpu_id = data[1].strip()
+                        data_dict[cpu_id] = {}
+                    else:
+                        data_dict[cpu_id][data[0].strip()] = data[1].strip()
             proc_mem_fd.close()
         return data_dict
     except FileNotFoundError as fnfe:
