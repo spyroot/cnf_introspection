@@ -50,7 +50,7 @@ def run_install_dep(required_apps: Optional[List[str]] = None):
             run_distro_installer(inst_tool, required_apps)
 
 
-def memory(hugepages, is_yaml: bool, is_verbose: bool):
+def memory(hugepages, is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
     """Return memory stats
     :param is_yaml:
     :param hugepages: Filters and output dict json will store only huge pages data.
