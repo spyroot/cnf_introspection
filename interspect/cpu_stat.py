@@ -42,7 +42,7 @@ def kernel_cmdline() -> Dict:
 
 
 def cpu_capability_stats():
-    """cpu capability
+    """Returns cpu capability.
     :return:
     """
     data_dict = {}
@@ -60,7 +60,10 @@ def cpu_capability_stats():
                         data_dict[cpu_id] = {}
                         data_dict[cpu_id]['processor'] = data_value
                     else:
-                        data_dict[cpu_id][data_key] = data_value
+                        if 'flags' == data_key:
+                            data_dict = dict([s.strip().split(":", 1) for s in data_key if len(s) > 0])
+                        else:
+                            data_dict[cpu_id][data_key] = data_value
             proc_mem_fd.close()
         return data_dict
     except FileNotFoundError as fnfe:
