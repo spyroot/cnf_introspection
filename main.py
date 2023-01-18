@@ -7,6 +7,7 @@ import os
 import argparse
 import json
 import sys
+import yaml
 from typing import Optional, List
 from interspect.mem_stat import mem_stats, mem_large_page
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
@@ -131,6 +132,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="CNF worker node data collector.")
     parser.add_argument('--is_verbose', action='store_true', required=False,
                         help="Enable verbose output.")
+    parser.add_argument('--yaml', action='store_true', required=False,
+                        help="Change output from json to yaml.")
+
     parser.add_argument('--install_dep', action='store_true', required=False, dest="install_dep",
                         help="Install required tools and packages.")
 
