@@ -26,8 +26,8 @@ def cpu_interrupts():
         print("You need to install lshw and ethtool first.")
 
 
-def kernel_cmdline(cmd) -> Dict:
-    """Return current kernel cmd line
+def kernel_cmdline() -> Dict:
+    """Return current kernel cmd line.
     :return: dict
     """
     try:

@@ -73,7 +73,7 @@ def numa():
 
 
 def kernel():
-    print('task cpu')
+    nice_json(kernel_cmdline())
 
 
 def network(interface: str, pci: str, mac_addr: str, is_verbose: Optional[bool] = False):
