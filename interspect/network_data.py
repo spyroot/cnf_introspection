@@ -145,7 +145,7 @@ def network_adapters_data(interface: Optional[str] = "",
 
         if mac_addr is not None and len(mac_addr):
             network_adapters = {k: network_adapters[k] for k in network_adapters if
-                                pci_addr.strip() == network_adapters[k]['address'].strip()}
+                                mac_addr.strip() == network_adapters[k]['address'].strip()}
 
         return network_adapters
     except FileNotFoundError as fnfe:
