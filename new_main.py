@@ -11,7 +11,7 @@ import argparse
 import json
 import sys
 from typing import Optional, List
-from interspect.mem_stat import mem_info
+from interspect.mem_stat import mem_info, mem_stats
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
 from interspect.numa_data import numa_topo_data, numa_topo_data_console
 from interspect.cpu_stat import cpu_per_core, kernel_cmdline, cpu_interrupts
@@ -51,7 +51,12 @@ def run_install_dep(required_apps: Optional[List[str]] = None):
 
 
 def memory(hugepages, is_verbose):
-    print('task a', hugepages)
+    """Return memory stats
+    :param hugepages: Filters and output dict json will store only huge pages data.
+    :param is_verbose:
+    :return:
+    """
+    nice_json(is_huge_page_only=mem_stats(bool(hugepages)))
 
 
 def cpu(beta, gamma):
@@ -71,12 +76,12 @@ def kernel():
 
 
 def network(interface: str, pci: str, mac_addr: str, is_verbose: Optional[bool] = False):
-    """
+    """Network command
     :param interface:  Filter by interface name
     :param pci: Filter by pci address
     :param mac_addr:  Filter by mac address
     :param is_verbose:
-    :return:
+    :return: json
     """
     netdata = network_adapters_data(interface=interface, pci_addr=pci, mac_addr=mac_addr)
     if netdata is not None:

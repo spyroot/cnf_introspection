@@ -2,10 +2,8 @@ import os
 from typing import Optional
 
 
-def mem_info(cmd, is_huge_page_only: Optional[bool] = False):
-    """
-    Return mem info stats
-    :param cmd:
+def mem_stats(is_huge_page_only: Optional[bool] = False):
+    """Return mem info stats
     :param is_huge_page_only: will return dict with huge pages only
     :return:
     """
