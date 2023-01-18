@@ -53,6 +53,10 @@ def main(cmd):
     :param cmd: args
     :return:
     """
+    print(cmd)
+    print(cmd.memory)
+    print(cmd.hugepages)
+
     if cmd.install_dep:
         run_install_dep()
 
@@ -89,11 +93,11 @@ if __name__ == '__main__':
                         help="view numa details.")
     parser.add_argument('--kernel', action='store_true', required=False,
                         help="kernel details.")
-    parser.add_argument('--memory', action='store_true', required=False,
-                        help="memory details.")
+    # parser.add_argument('--memory', action='store_true', required=False,
+    #                     help="memory details.")
 
     sub_memory = parser.add_subparsers(help='memory help')
-    parser_huge_page = sub_memory.add_parser('hugepages', help='hugepages only.')
+    parser_huge_page = sub_memory.add_parser('memory', help='hugepages only.')
     parser_huge_page.add_argument('--hugepages', action='store_true', required=False, help='bar is useful option')
 
     parser.add_argument('--all', action='store_true', required=False,
