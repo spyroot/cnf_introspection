@@ -149,4 +149,6 @@ def network_adapters_data(interface: Optional[str] = "",
 
         return network_adapters
     except FileNotFoundError as fnfe:
-        print("You need to install lshw and ethtool first.")
+        print("You need to install lshw and ethtool first. Error: ", fnfe)
+
+    return {}

@@ -28,4 +28,4 @@ def numa_topo_data_console(cmd):
         output = cmdr.stdout.decode()
         print(output)
     except FileNotFoundError as fnfe:
-        print("You need to install lshw and ethtool first.")
+        print("You need to install lshw and ethtool first. Error: ", fnfe)

@@ -11,7 +11,7 @@ import argparse
 import json
 import sys
 from typing import Optional, List
-from interspect.mem_stat import mem_stats
+from interspect.mem_stat import mem_stats, mem_large_page
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
 from interspect.numa_data import numa_topo_data, numa_topo_data_console
 from interspect.cpu_stat import cpu_per_core, kernel_cmdline, cpu_interrupts, cpu_capability_stats
@@ -96,6 +96,13 @@ def cpu_capability(is_verbose: bool):
     nice_json(cpu_capability_stats())
 
 
+def large_huge(is_verbose: bool):
+    """
+    :return:
+    """
+    nice_json(mem_large_page())
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="CNF worker node data collector.")
     parser.add_argument('--is_verbose', action='store_true', required=False,
@@ -120,6 +127,7 @@ if __name__ == '__main__':
     kernel_cmd = subparsers.add_parser('kernel')
     cpu_interrupt_cmd = subparsers.add_parser('cpu_interrupt')
     cpu_cap_cmd = subparsers.add_parser('cpu_capability')
+    large_page_cmd = subparsers.add_parser('large_huge')
 
     kwargs = vars(parser.parse_args())
     if kwargs['subparser'] is not None:
