@@ -5,11 +5,11 @@
 """
 import os
 import argparse
+import json
+import sys
 from typing import Optional, List
-
 from interspect.mem_stat import mem_info
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
-import json
 from interspect.numa_data import numa_topo_data, numa_topo_data_console
 from interspect.cpu_stat import cpu_per_core, kernel_cmdline, cpu_interrupts
 
@@ -21,7 +21,7 @@ def nice_json(json_data: str, sort: Optional[bool] = True, indents: Optional[int
     :param indents:
     :return:
     """
-    if isinstance(json_data) is str:
+    if isinstance(json_data, str):
         print(json.dumps(json.loads(json_data), sort_keys=sort, indent=indents))
     else:
         print(json.dumps(json_data, sort_keys=sort, indent=indents))
@@ -37,7 +37,7 @@ def run_install_dep(required_apps: Optional[List[str]] = None):
 
     if os.geteuid() != 0:
         print("You need to run --install_dep as root.")
-        exit(1)
+        sys.exit(1)
 
     distro_installers = installed()
     for (is_installed, inst_tool) in distro_installers:
