@@ -4,6 +4,7 @@
 
 # Mus
 import subprocess
+import sys
 import warnings
 from pathlib import Path
 from typing import List, Optional
@@ -29,7 +30,7 @@ def run_distro_installer(inst_tool, apps: List[str]):
         cmd_args = [inst_tool, "install", "-y"] + apps
     else:
         print("Unknown installer.")
-        exit(1)
+        sys.exit(1)
 
     cmdr = subprocess.run(cmd_args, check=True, capture_output=True)
     if cmdr.returncode != 0:

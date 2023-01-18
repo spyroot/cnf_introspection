@@ -29,7 +29,7 @@ def nice_json(json_data, sort: Optional[bool] = True, indents: Optional[int] = 4
         print(json.dumps(json_data, sort_keys=sort, indent=indents))
 
 
-def nice_yaml(data, default_style: Optional[str] = "",
+def nice_yaml(data, default_style: Optional[str] = "plain",
               default_flow_style: Optional[bool] = False,
               encoding: Optional[str] = "utf-8",
               allow_unicode: Optional[bool] = True):
