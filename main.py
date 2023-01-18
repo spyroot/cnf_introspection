@@ -137,10 +137,13 @@ def kernel(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
     :return:
     """
     kernel_config = read_kernel_configs()
-    kernel_cmd_data = kernel_cmdline()
-    kernel_modules = list_kernel_mods()
-    kernel_config_all = {**kernel_config, **kernel_cmd_data, **kernel_modules}
-    printer_router(kernel_config_all, is_yaml=is_yaml, is_verbose=is_verbose)
+    kernel_config["kernel_cmd"] = kernel_cmdline()
+    kernel_config["kmod"] = list_kernel_mods()
+
+    # kernel_cmd_data = kernel_cmdline()
+    # kernel_modules = list_kernel_mods()
+    # kernel_config_all = {**kernel_config, **kernel_cmd_data, **kernel_modules}
+    printer_router(kernel_config, is_yaml=is_yaml, is_verbose=is_verbose)
 
 
 def network(interface: str, pci: str, mac_addr: str,
