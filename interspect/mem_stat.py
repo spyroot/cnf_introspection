@@ -29,12 +29,10 @@ def mem_stats(is_huge_page_only: Optional[bool] = False):
 
 
 def mem_large_page(gb_kv='pdpe1gb'):
-    """Return list of cpu and 1GB pages supported
+    """Return dict pdpe1gb true if all CPU support pdpe1gb
     :return:
     """
     data_dict = cpu_capability_stats()
     d = [k['flags'][gb_kv] for k in data_dict.values()]
-    print(len(data_dict.keys()))
-    print(len(d))
-    return {}
+    return {"pdpe1gb": len(data_dict.keys()) == len(d)}
 
