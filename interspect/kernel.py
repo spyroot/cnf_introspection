@@ -67,6 +67,7 @@ def read_kernel_configs():
     # we swap each config is key, if we have more then one caller need check both
 
     for v in valid_path:
+        kern_configs[str(v)] = {}
         kern_cfg, ken_mod = kernel_kv(str(v))
         kern_configs[str(v)]['kernel_config'] = kern_cfg
         kern_configs[str(v)]['kernel_modules'] = ken_mod
