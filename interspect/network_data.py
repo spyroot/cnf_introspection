@@ -96,7 +96,9 @@ def network_addr_mac(eth_name: str) -> str:
         return output.split("address:")[1:][0].strip()
 
 
-def network_adapters_data(interface: Optional[str] = "", pci_addr: Optional[str] = ""):
+def network_adapters_data(interface: Optional[str] = "",
+                          pci_addr: Optional[str] = "",
+                          mac_addr: Optional[str] = ""):
     """
     :return:
     """
@@ -139,6 +141,9 @@ def network_adapters_data(interface: Optional[str] = "", pci_addr: Optional[str]
         if pci_addr is not None and len(pci_addr):
             network_adapters = {k: network_adapters[k] for k in network_adapters if
                                 pci_addr.strip() == network_adapters[k]['pci'].strip()}
+        if mac_addr is not None and len(mac_addr):
+            network_adapters = {k: network_adapters[k] for k in network_adapters if
+                                pci_addr.strip() == network_adapters[k]['address'].strip()}
 
         return network_adapters
     except FileNotFoundError as fnfe:

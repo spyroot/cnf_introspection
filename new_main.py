@@ -70,17 +70,17 @@ def kernel():
     print('task cpu')
 
 
-def network(interface: str, pci: str, is_verbose: Optional[bool] = False):
+def network(interface: str, pci: str, mac_addr: str, is_verbose: Optional[bool] = False):
     """
-
-    :param interface:
-    :param pci:
+    :param interface:  Filter by interface name
+    :param pci: Filter by pci address
+    :param mac_addr:  Filter by mac address
     :param is_verbose:
     :return:
     """
     print('task interface, filter interface name', interface)
     print('task interface filter pci addr', pci)
-    netdata = network_adapters_data(interface=interface, pci_addr=pci)
+    netdata = network_adapters_data(interface=interface, pci_addr=pci, mac_addr=mac_addr)
     if netdata is not None:
         nice_json(netdata)
 
@@ -97,8 +97,12 @@ if __name__ == '__main__':
                           action='store_true', required=False, help='hugepages.')
 
     cpu_cmd = subparsers.add_parser('network')
-    cpu_cmd.add_argument('-i', '--interface', dest='interface', default="", help='Beta description')
-    cpu_cmd.add_argument('-p', '--pci', dest='pci', default="", help='Gamma description')
+    cpu_cmd.add_argument('-i', '--interface', dest='interface', default="",
+                         help="Filter by interface  name eth0 etc.")
+    cpu_cmd.add_argument('-p', '--pci', dest='pci', default="",
+                         help="Filter by pci address 0000:5e:00.1.")
+    cpu_cmd.add_argument('-m', '--mac_addr', dest='mac_addr', default="",
+                         help="Filter by mac address address 98:03:9b:b9:a4:8b.")
 
     cpu_cmd = subparsers.add_parser('cpu')
     numa_cmd = subparsers.add_parser('numa')
