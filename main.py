@@ -50,7 +50,7 @@ def run_install_dep(required_apps: Optional[List[str]] = None):
             run_distro_installer(inst_tool, required_apps)
 
 
-def memory(hugepages, is_verbose: bool):
+def memory(hugepages, yaml: bool is_verbose: bool):
     """Return memory stats
     :param hugepages: Filters and output dict json will store only huge pages data.
     :param is_verbose:
@@ -132,8 +132,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="CNF worker node data collector.")
     parser.add_argument('--is_verbose', action='store_true', required=False,
                         help="Enable verbose output.")
-    parser.add_argument('--yaml', action='store_true', required=False,
-                        help="Change output from json to yaml.")
+    parser.add_argument('--yaml', action='store_true', required=False, dest="is_yaml",
+                        help="Changes output from json to yaml.")
 
     parser.add_argument('--install_dep', action='store_true', required=False, dest="install_dep",
                         help="Install required tools and packages.")
