@@ -126,12 +126,14 @@ def vmstat(is_verbose: bool):
     """
     nice_json(vm_stat())
 
+def install_dep():
+    print("Run install dep")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="CNF worker node data collector.")
     parser.add_argument('--is_verbose', action='store_true', required=False,
                         help="Enable verbose output.")
-    parser.add_argument('--install_dep', action='store_true', required=False,
+    parser.add_argument('--install_dep', action='store_true', required=False, dest="install_dep",
                         help="Install required tools and packages.")
 
     subparsers = parser.add_subparsers(dest='subparser')
