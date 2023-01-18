@@ -69,7 +69,7 @@ def main(cmd):
     if cmd.kernel or cmd.all:
         nice_json(kernel_cmdline(cmd))
     if cmd.memory or cmd.all:
-        nice_json(mem_info(cmd))
+        nice_json(mem_info(cmd, is_huge_page_only=cmd.hugepage))
 
 
 if __name__ == '__main__':
@@ -90,10 +90,16 @@ if __name__ == '__main__':
                         help="kernel details.")
     parser.add_argument('--memory', action='store_true', required=False,
                         help="memory details.")
+
+    sub_memory = parser.add_subparsers(help='memory help')
+    parser_huge_page = sub_memory.add_parser('hugepage', action='store_true', required=False, help='huge pages only.')
+
+    parser.add_argument('door', type=str, choices=range(1, 4))
     parser.add_argument('--all', action='store_true', required=False,
                         help="kernel details.")
     parser.add_argument('--install_dep', action='store_true', required=False,
                         help="Install required tools.")
+
 
     args = parser.parse_args()
     main(args)
