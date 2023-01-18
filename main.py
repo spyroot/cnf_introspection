@@ -1,6 +1,8 @@
 #!/usr/bin/env python
-# main entry for cli tool
-# Mus
+"""
+ Main entry for cli tool
+ Mus
+"""
 import os
 import argparse
 from typing import Optional, List
@@ -19,11 +21,10 @@ def nice_json(json_data: str, sort: Optional[bool] = True, indents: Optional[int
     :param indents:
     :return:
     """
-    if type(json_data) is str:
+    if isinstance(json_data) is str:
         print(json.dumps(json.loads(json_data), sort_keys=sort, indent=indents))
     else:
         print(json.dumps(json_data, sort_keys=sort, indent=indents))
-    return None
 
 
 def run_install_dep(required_apps: Optional[List[str]] = None):
