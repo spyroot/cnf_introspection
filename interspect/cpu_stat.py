@@ -1,3 +1,6 @@
+"""cpu related data
+ Mus
+"""
 import os
 import subprocess
 from typing import Dict

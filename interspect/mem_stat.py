@@ -1,3 +1,6 @@
+"""memory related data, mostly from proc aggregated.
+ Mus
+"""
 import os
 from typing import Optional
 from interspect.cpu_stat import cpu_capability_stats

@@ -1,5 +1,6 @@
-# collects numa related data points
-# Mus
+"""numa related data, mostly from proc aggregated.
+Mus
+"""
 import subprocess
 import warnings
 from pathlib import Path

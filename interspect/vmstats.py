@@ -1,3 +1,5 @@
+"""vmstats related data, mostly from proc aggregated.
+"""
 import os
 from typing import Dict
 

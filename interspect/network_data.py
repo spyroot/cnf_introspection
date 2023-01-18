@@ -1,4 +1,7 @@
+"""network related data, mostly from proc aggregated.
+"""
 # network os data collector.
+
 # Mus
 import subprocess
 import warnings
