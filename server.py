@@ -43,6 +43,7 @@ async def adapters_data():
     """
     return cpu_per_core(cmd="")
 
+
 @app.get("/cpu_interrupts")
 async def cpu_interrupts_data():
     """CPU interrupt data
