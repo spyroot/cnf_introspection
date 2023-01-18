@@ -29,6 +29,44 @@ def nice_json(json_data, sort: Optional[bool] = True, indents: Optional[int] = 4
         print(json.dumps(json_data, sort_keys=sort, indent=indents))
 
 
+def nice_yaml(data, default_style: Optional[str] = "",
+              default_flow_style: Optional[bool] = False,
+              encoding: Optional[str] = "utf-8",
+              allow_unicode: Optional[bool] = True):
+    """Make yaml look nice.
+    plain, single-quoted, double-quoted, literal, and folded
+    :param data:
+    :param default_style:
+    :param default_flow_style:
+    :param encoding:
+    :param allow_unicode:
+    :return:
+    """
+    print(yaml.dump(data, default_style=default_style,
+                    default_flow_style=default_flow_style,
+                    encoding=encoding,
+                    allow_unicode=allow_unicode))
+
+
+def printer_router(data, is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
+    """
+    :param data:
+    :param is_yaml:
+    :param is_verbose:
+    :return:
+    """
+    if data is None:
+        return
+
+    if is_verbose:
+        print(data)
+
+    if is_yaml:
+        nice_yaml(yaml.dump(data))
+    else:
+        nice_json(data)
+
+
 def run_install_dep(required_apps: Optional[List[str]] = None):
     """Installs required packages
     :return:
@@ -58,10 +96,7 @@ def memory(hugepages, is_yaml: Optional[bool] = False, is_verbose: Optional[bool
     :return:
     """
     data = mem_stats(is_huge_page_only=bool(hugepages))
-    if is_yaml:
-        print(yaml.dump(data))
-    else:
-        nice_json(data)
+    printer_router(data, is_yaml, is_verbose)
 
 
 def cpu(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
@@ -70,11 +105,7 @@ def cpu(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
     :param is_verbose:
     :return:
     """
-    data = cpu_per_core()
-    if is_yaml:
-        print(yaml.dump(data, default_flow_style=True))
-    else:
-        nice_json(data)
+    printer_router(cpu_per_core(), is_yaml=is_yaml, is_verbose=is_verbose)
 
 
 def cpu_interrupt(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
@@ -83,64 +114,68 @@ def cpu_interrupt(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = 
     :param is_verbose:
     :return:
     """
-    data = cpu_interrupts()
-    if is_yaml:
-        print(yaml.dump(data))
-    else:
-        nice_json(cpu_interrupts())
+    printer_router(cpu_interrupts(), is_yaml=is_yaml, is_verbose=is_verbose)
 
 
-def numa(is_verbose: bool):
-    """
+def numa(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
+    """Collect numa topology and other data.
+    :param is_yaml: if serialized as yaml
     :param is_verbose:
     :return:
     """
     numa_topo_data_console(None)
 
 
-def kernel(is_verbose: bool):
-    """
+def kernel(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
+    """Collect kernel loader and flags.
+    :param is_yaml: if serialized as yaml
     :param is_verbose:
     :return:
     """
-    nice_json(kernel_cmdline())
+    printer_router(kernel_cmdline(), is_yaml=is_yaml, is_verbose=is_verbose)
 
 
-def network(interface: str, pci: str, mac_addr: str, is_verbose: Optional[bool] = False):
+def network(interface: str, pci: str, mac_addr: str,
+            is_yaml: Optional[bool] = False,
+            is_verbose: Optional[bool] = False) -> None:
     """Network command
     :param interface:  Filter by interface name
     :param pci: Filter by pci address
     :param mac_addr:  Filter by mac address
     :param is_verbose:
-    :return: json
+    :param is_yaml: if serialized as yaml
+    :return: None
     """
     netdata = network_adapters_data(interface=interface, pci_addr=pci, mac_addr=mac_addr)
     if netdata is not None:
-        nice_json(netdata)
+        printer_router(netdata, is_yaml=is_yaml, is_verbose=is_verbose)
 
 
-def cpu_capability(is_verbose: bool):
-    """
+def cpu_capability(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
+    """Collect cpu capability
     :return:
     """
-    nice_json(cpu_capability_stats())
+    printer_router(cpu_capability_stats(), is_yaml=is_yaml, is_verbose=is_verbose)
 
 
-def large_huge(is_verbose: bool):
+def large_huge(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
     """Return dict if system support 1G Huge pages.
     :return:
     """
-    nice_json(mem_large_page())
+    printer_router(large_huge(), is_yaml=is_yaml, is_verbose=is_verbose)
 
 
-def vmstat(is_verbose: bool):
+def vmstat(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
     """Return vm_stat json cmd
     :return:
     """
-    nice_json(vm_stat())
+    printer_router(vm_stat(), is_yaml=is_yaml, is_verbose=is_verbose)
 
 
 def install_dep():
+    """
+    :return:
+    """
     print("Run install dep")
 
 
