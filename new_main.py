@@ -11,10 +11,11 @@ import argparse
 import json
 import sys
 from typing import Optional, List
-from interspect.mem_stat import mem_info, mem_stats
+from interspect.mem_stat import mem_stats
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
 from interspect.numa_data import numa_topo_data, numa_topo_data_console
 from interspect.cpu_stat import cpu_per_core, kernel_cmdline, cpu_interrupts
+
 
 def nice_json(json_data: str, sort: Optional[bool] = True, indents: Optional[int] = 4):
     """Make json look nice.
@@ -68,7 +69,7 @@ def cpu_interrupt():
 
 
 def numa():
-    print('task numa')
+    nice_json(cpu_interrupts())
 
 
 def kernel():

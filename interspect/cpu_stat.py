@@ -14,8 +14,8 @@ def cpu_per_core(cmd):
         print("You need to install lshw and ethtool first.")
 
 
-def cpu_interrupts(cmd):
-    """Return cpu stats in json
+def cpu_interrupts():
+    """Return cpu interrupts stats serialized as a json
     :return:
     """
     try:
