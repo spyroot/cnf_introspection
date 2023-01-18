@@ -9,7 +9,7 @@ def mem_info(cmd):
         if os.path.isfile("/proc/meminfo") and os.access("/proc/meminfo", os.R_OK):
             myfile = open("/proc/meminfo", 'r')
             for line in myfile:
-                print
+                print(line)
                 line.rstrip("\n")
             myfile.close()
     except FileNotFoundError as fnfe:
