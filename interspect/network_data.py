@@ -100,9 +100,6 @@ def network_adapters_data(interface: Optional[str] = "", pci_addr: Optional[str]
     """
     :return:
     """
-    print("Interface, ", interface)
-    print("pci_addr, ", pci_addr)
-
     try:
         result = subprocess.run(["lshw", "-class", "network", "-businfo"],
                                 check=True, capture_output=True)
@@ -137,7 +134,7 @@ def network_adapters_data(interface: Optional[str] = "", pci_addr: Optional[str]
             network_adapters[eth_name] = network_adapter
 
         if interface is not None and len(interface):
-            network_adapters = {key: network_adapters[interface.strip()] for key in [interface]}
+            network_adapters = {key: network_adapters[interface.strip()] for key in [interface.strip()]}
 
         if pci_addr is not None and len(pci_addr):
             network_adapters = {k: network_adapters[k] for k in network_adapters if
