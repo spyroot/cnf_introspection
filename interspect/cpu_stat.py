@@ -3,7 +3,7 @@ import subprocess
 from typing import Dict
 
 
-def cpu_per_core(cmd):
+def cpu_per_core():
     """Return cpu stats in json
     :return:
     """
@@ -11,8 +11,9 @@ def cpu_per_core(cmd):
         cmdr = subprocess.run(["mpstat", "-P", "ALL", "-o", "JSON"], check=True, capture_output=True)
         output = cmdr.stdout.decode()
         return output
-    except FileNotFoundError as fnfe:
+    except FileNotFoundError as _:
         print("You need to install lshw and ethtool first.")
+    return {}
 
 
 def cpu_interrupts():
@@ -24,18 +25,27 @@ def cpu_interrupts():
         decoded = cmdr.stdout.decode()
         return decoded
     except FileNotFoundError as fnfe:
-        print("You need to install lshw and ethtool first.")
+        print("You need to install lshw and ethtool first.  Error:", fnfe)
+    return {}
 
 
 def kernel_cmdline() -> Dict:
     """Return current kernel cmd line.
     :return: dict
     """
+    kernel_cmd = {}
     try:
         cmdr = subprocess.run(["cat", "/proc/cmdline"], check=True, capture_output=True)
         decoded = cmdr.stdout.decode().strip()
         decoded = set(decoded.split(" "))
-        data = dict.fromkeys(decoded, True)
+        for d in decoded:
+            if '=' in d:
+                data = d.split('=')
+                if data is not None and len(data) == 2:
+                    kernel_cmd[data[0]] = data[1]
+            else:
+                data[d] = True
+        # data = dict.fromkeys(decoded, True)
         return data
     except FileNotFoundError as fnfe:
         print("You need to install cat.")
