@@ -61,7 +61,7 @@ def cpu_capability_stats():
                         data_dict[cpu_id]['processor'] = data_value
                     else:
                         if 'flags' == data_key:
-                            data_dict = dict([s.strip().split() for s in data_key if len(s) > 0])
+                            data_dict[cpu_id][data_key] = dict([s.strip().split() for s in data_key if len(s) > 0])
                         else:
                             data_dict[cpu_id][data_key] = data_value
             proc_mem_fd.close()
