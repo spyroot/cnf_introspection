@@ -49,10 +49,10 @@ def nice_yaml(data, default_style: Optional[str] = "",
 
 
 def printer_router(data, is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
-    """
-    :param data:
-    :param is_yaml:
-    :param is_verbose:
+    """Main printer router,  dispatch data to correct printer.
+    :param data:  python dict or any other data structure that json and yaml should be able to re-present.
+    :param is_yaml: if caller asked yaml otherwise default json
+    :param is_verbose: will dump raw dict (mainly debug)
     :return:
     """
     if data is None:
