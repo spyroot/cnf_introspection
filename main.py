@@ -42,10 +42,12 @@ def nice_yaml(data, default_style: Optional[str] = "plain",
     :param allow_unicode:
     :return:
     """
-    print(yaml.dump(data, default_style=default_style,
-                    default_flow_style=default_flow_style,
-                    encoding=encoding,
-                    allow_unicode=allow_unicode))
+    yaml.safe_dump(data, allow_unicode=True, default_flow_style=False, stream=sys.stdout)
+    yaml.safe_dump(data, sys.stdout)
+    # print(yaml.dump(data, default_style=default_style,
+    #                 default_flow_style=default_flow_style,
+    #                 encoding=encoding,
+    #                 allow_unicode=allow_unicode))
 
 
 def printer_router(data, is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
