@@ -59,6 +59,7 @@ def cpu_capability_stats():
                     if 'processor' in data_key and len(data_key) > 0:
                         cpu_id = data_value
                         data_dict[cpu_id] = {}
+                        data_dict[cpu_id]['processor'] = data_value
                     else:
                         data_dict[cpu_id][data_key] = data_value
             proc_mem_fd.close()
