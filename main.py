@@ -93,7 +93,8 @@ if __name__ == '__main__':
                         help="memory details.")
 
     sub_memory = parser.add_subparsers(help='memory help')
-    parser_huge_page = sub_memory.add_parser('hugepage', help='huge pages only.')
+    parser_huge_page = sub_memory.add_parser('hugepages', help='hugepages only.')
+    parser_huge_page.add_argument('--hugepages', action='store_true', required=False, help='bar is useful option')
 
     parser.add_argument('--all', action='store_true', required=False,
                         help="kernel details.")
