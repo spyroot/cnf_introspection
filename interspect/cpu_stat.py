@@ -18,7 +18,7 @@ def cpu_per_core():
 
 def cpu_interrupts():
     """Return cpu interrupts stats serialized as a json
-    :return:
+    :return: dict
     """
     try:
         cmdr = subprocess.run(["mpstat", "-I", "SCPU", "-o", "JSON"], check=True, capture_output=True)
