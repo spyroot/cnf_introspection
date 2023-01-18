@@ -52,9 +52,10 @@ def cpu_capability_stats():
             cpu_id = None
             for line in proc_mem_fd:
                 data = line.split(":")
+                print(len(data))
                 if data is not None and len(data) == 1:
-                    data_value = data[1].strip()
                     data_key = data[0].strip()
+                    data_value = data[1].strip()
                     if 'processor' in data_key and len(data_key) > 0:
                         cpu_id = data_value
                         data_dict[cpu_id] = {}
