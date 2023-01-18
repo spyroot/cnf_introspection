@@ -12,7 +12,7 @@ def mem_info(cmd):
             for line in proc_mem_fd:
                 data = line.split(":")
                 if len(data) > 0:
-                    data_dict[data[0].strip()] = data[1].strio()
+                    data_dict[data[0].strip()] = data[1].strip()
             proc_mem_fd.close()
     except FileNotFoundError as fnfe:
         print("You need to install lshw and ethtool first.")
