@@ -100,6 +100,9 @@ def network_adapters_data(interface: Optional[str] = "", pci_addr: Optional[str]
     """
     :return:
     """
+    print("Interface, ", interface)
+    print("pci_addr, ", pci_addr)
+
     try:
         result = subprocess.run(["lshw", "-class", "network", "-businfo"],
                                 check=True, capture_output=True)
