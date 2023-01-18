@@ -24,9 +24,8 @@ def numa_topo_data_console(cmd):
     """
     try:
         cmdr = subprocess.run(["lstopo-no-graphics", "--no-io", "-P", "--no-caches"],
-                                check=True, capture_output=True)
+                              check=True, capture_output=True)
         output = cmdr.stdout.decode()
         print(output)
-
     except FileNotFoundError as fnfe:
         print("You need to install lshw and ethtool first.")
