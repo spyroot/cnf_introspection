@@ -60,30 +60,34 @@ def memory(hugepages, is_verbose: bool):
     nice_json(mem_stats(is_huge_page_only=bool(hugepages)))
 
 
-def cpu(beta, gamma):
+def cpu(is_verbose: bool):
     """
-
-    :param beta:
-    :param gamma:
     :return:
     """
-    numa_topo_data_console(cmd)
+    nice_json(cpu_per_core(None))
+
 
 def cpu_interrupt(is_verbose: bool):
-    """
-
+    """Return interrupts
     :param is_verbose:
     :return:
     """
     nice_json(cpu_interrupts())
-    print('task interupts')
 
 
 def numa(is_verbose: bool):
-    nice_json(cpu_interrupts())
+    """
+    :param is_verbose:
+    :return:
+    """
+    numa_topo_data_console(None)
 
 
 def kernel(is_verbose: bool):
+    """
+    :param is_verbose:
+    :return:
+    """
     nice_json(kernel_cmdline())
 
 
@@ -108,7 +112,14 @@ def cpu_capability(is_verbose: bool):
 
 
 def large_huge(is_verbose: bool):
+    """Return dict if system support 1G Huge pages.
+    :return:
     """
+    nice_json(mem_large_page())
+
+
+def vmstat(is_verbose: bool):
+    """vmstat cmd
     :return:
     """
     nice_json(mem_large_page())
@@ -139,6 +150,7 @@ if __name__ == '__main__':
     cpu_interrupt_cmd = subparsers.add_parser('cpu_interrupt')
     cpu_cap_cmd = subparsers.add_parser('cpu_capability')
     large_page_cmd = subparsers.add_parser('large_huge')
+    vmstat_cmd = subparsers.add_parser('vmstat')
 
     kwargs = vars(parser.parse_args())
     if kwargs['subparser'] is not None:
