@@ -1,8 +1,8 @@
 import os
-from optparse import Option
+from typing import Optional
 
 
-def mem_info(cmd, is_huge_page_only: Option[bool] = False):
+def mem_info(cmd, is_huge_page_only: Optional[bool] = False):
     """
     Return mem info stats
     :param cmd:
