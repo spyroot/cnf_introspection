@@ -1,8 +1,3 @@
-import argparse
-from typing import Optional
-
-from interspect.vmstats import vm_stat
-
 # !/usr/bin/env python
 """
  Main entry for cli tool
@@ -17,6 +12,7 @@ from interspect.mem_stat import mem_stats, mem_large_page
 from interspect.network_data import network_adapters_data, installed, run_distro_installer
 from interspect.numa_data import numa_topo_data, numa_topo_data_console
 from interspect.cpu_stat import cpu_per_core, kernel_cmdline, cpu_interrupts, cpu_capability_stats
+from interspect.vmstats import vm_stat
 
 
 def nice_json(json_data, sort: Optional[bool] = True, indents: Optional[int] = 4):
@@ -126,8 +122,10 @@ def vmstat(is_verbose: bool):
     """
     nice_json(vm_stat())
 
+
 def install_dep():
     print("Run install dep")
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="CNF worker node data collector.")
@@ -160,4 +158,5 @@ if __name__ == '__main__':
 
     kwargs = vars(parser.parse_args())
     if kwargs['subparser'] is not None:
+        kwargs.pop('install_dep')
         globals()[kwargs.pop('subparser')](**kwargs)
