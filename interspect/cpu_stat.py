@@ -44,11 +44,13 @@ def kernel_cmdline() -> Dict:
                 if data is not None and len(data) == 2:
                     kernel_cmd[data[0]] = data[1]
             else:
-                data[d] = True
+                kernel_cmd[d] = True
         # data = dict.fromkeys(decoded, True)
-        return data
+        return kernel_cmd
     except FileNotFoundError as fnfe:
-        print("You need to install cat.")
+        print("You need to install cat. Error", fnfe)
+
+    return kernel_cmd
 
 
 def cpu_capability_stats():
@@ -78,3 +80,5 @@ def cpu_capability_stats():
         return data_dict
     except FileNotFoundError as fnfe:
         print("Failed to access /proc/cpuinfo. Error", fnfe)
+
+    return {}
