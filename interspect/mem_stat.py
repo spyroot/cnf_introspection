@@ -11,12 +11,11 @@ def mem_stats(is_huge_page_only: Optional[bool] = False):
     data_dict = {}
     try:
         if os.path.isfile("/proc/meminfo") and os.access("/proc/meminfo", os.R_OK):
-            proc_mem_fd = open("/proc/meminfo", 'r', encoding="utf8")
-            for line in proc_mem_fd:
-                data = line.split(":")
-                if len(data) > 0:
-                    data_dict[data[0].strip()] = data[1].strip()
-            proc_mem_fd.close()
+            with open("/proc/meminfo", 'r', encoding="utf8") as proc_mem_fd:
+                for line in proc_mem_fd:
+                    data = line.split(":")
+                    if len(data) > 0:
+                        data_dict[data[0].strip()] = data[1].strip()
     except FileNotFoundError as fnfe:
         print("You need to install lshw and ethtool first. Error: ", fnfe)
 
@@ -29,9 +28,13 @@ def mem_stats(is_huge_page_only: Optional[bool] = False):
     return data_dict
 
 
-def mem_large_page():
+def mem_large_page(gb_kv='pdpe1gb'):
     """Return list of cpu and 1GB pages supported
     :return:
     """
     data_dict = cpu_capability_stats()
-    return {k: data_dict[k] for k in data_dict if k == 'flags'}
+    d = [k['flags'][gb_kv] for k in data_dict.values()]
+    print(len(data_dict.keys()))
+    print(len(d))
+    return {}
+
