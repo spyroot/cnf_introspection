@@ -72,7 +72,7 @@ def cpu(is_yaml: Optional[bool] = False, is_verbose: Optional[bool] = False):
     """
     data = cpu_per_core()
     if is_yaml:
-        print(yaml.dump(data))
+        print(yaml.dump(data, default_flow_style=True))
     else:
         nice_json(data)
 
