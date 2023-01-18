@@ -94,7 +94,6 @@ if __name__ == '__main__':
     sub_memory = parser.add_subparsers(help='memory help')
     parser_huge_page = sub_memory.add_parser('hugepage',  help='huge pages only.')
 
-    parser.add_argument('door', type=str, choices=range(1, 4))
     parser.add_argument('--all', action='store_true', required=False,
                         help="kernel details.")
     parser.add_argument('--install_dep', action='store_true', required=False,
